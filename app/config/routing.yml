@@ -1,0 +1,3 @@
+dadamssg_demo_app_user:
+    resource: "@DadamssgDemoAppUserBundle/Resources/config/routing.yml"
+    prefix:   /api

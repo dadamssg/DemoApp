@@ -1,0 +1,13 @@
+services:
+    demo_app.user.user_repository:
+        class: Dadamssg\DemoApp\Bundle\UserBundle\Repository\DoctrineUserRepository
+        factory:
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments:
+            - Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser
+
+    demo_app.user.password_encoder:
+        class: Dadamssg\DemoApp\Bundle\UserBundle\Security\SymfonyPasswordEncoder
+        arguments:
+            - @security.encoder_factory

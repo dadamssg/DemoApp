@@ -1,0 +1,24 @@
+Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser:
+    type: entity
+    table: app_user
+    repositoryClass: Dadamssg\DemoApp\Bundle\UserBundle\Repository\DoctrineUserRepository
+    id:
+        id:
+            type: guid
+            generator:
+                strategy: none
+    fields:
+        registeredAt:
+            type: datetime
+        enabled:
+            type: boolean
+    embedded:
+        email:
+            class: Dadamssg\DemoApp\Model\User\Value\Email
+            columnPrefix: false
+        encodedPassword:
+            class: Dadamssg\DemoApp\Model\User\Value\EncodedPassword
+            columnPrefix: false
+    uniqueConstraints:
+        unique_email:
+            columns: [email_canonical]

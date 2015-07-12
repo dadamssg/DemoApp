@@ -1,0 +1,6 @@
+services:
+    demo_app.app.postgres_data_clearer:
+        class: Dadamssg\DemoApp\Bundle\AppBundle\Data\PostgresDataClearer
+        arguments:
+            - @doctrine.dbal.default_connection
+            - %database_user%

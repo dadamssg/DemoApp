@@ -1,0 +1,4 @@
+demo_app.user.register_user:
+    path:     /users
+    defaults: { _controller: DadamssgDemoAppUserBundle:User:Register }
+    methods: [POST]

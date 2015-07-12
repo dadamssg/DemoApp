@@ -1,0 +1,13 @@
+default:
+    extensions:
+        Behat\Symfony2Extension: ~
+    suites:
+        user:
+            type: symfony_bundle
+            bundle: DadamssgDemoAppUserBundle
+            contexts:
+                - Dadamssg\DemoApp\Bundle\AppBundle\Features\Context\DataContext:
+                    dataClearer: @demo_app.app.postgres_data_clearer
+                - Dadamssg\DemoApp\Bundle\AppBundle\Features\Context\HttpContext:
+                    urlGenerator: @router
+                - Dadamssg\DemoApp\Bundle\UserBundle\Features\Context\UserDomainContext: ~

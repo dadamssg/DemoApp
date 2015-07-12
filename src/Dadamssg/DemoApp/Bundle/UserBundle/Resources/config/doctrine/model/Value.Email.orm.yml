@@ -1,0 +1,9 @@
+Dadamssg\DemoApp\Model\User\Value\Email:
+    type: embeddable
+    fields:
+        value:
+            type: string
+            column: email
+        canonicalValue:
+            type: string
+            column: email_canonical
