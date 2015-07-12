@@ -19,23 +19,23 @@ class UserController extends AppController
         $form = $this->createForm($formType = new RegisterUserType());
         $this->submitJson($request, $form);
 
-        if ($form->isValid()) {
-            /** @var RegisterUser $command */
-            $command = $form->getData();
-            $this->getCommandBus()->handle($command);
-
-            if ($command->hasErrors()) {
-                return $this->respondWithErrors($command->getErrors());
-            }
-
-            $message = "Please confirm your account by clicking on the link in the email that has just been sent to you.";
-
-            return $this
-                ->setStatusCode(Response::HTTP_CREATED)
-                ->setData(['message' => $message])
-                ->respond();
+        if (!$form->isValid()) {
+            return $this->respondWithForm($form);
         }
 
-        return $this->respondWithForm($form);
+        /** @var RegisterUser $command */
+        $command = $form->getData();
+        $this->getCommandBus()->handle($command);
+
+        if ($command->hasErrors()) {
+            return $this->respondWithErrors($command->getErrors());
+        }
+
+        $message = "Please confirm your account by clicking on the link in the email that has just been sent to you.";
+
+        return $this
+            ->setStatusCode(Response::HTTP_CREATED)
+            ->setData(['message' => $message])
+            ->respond();
     }
 }

@@ -2,6 +2,6 @@
 
 namespace Dadamssg\DemoApp\Model\App\Exception;
 
-class DomainException extends \RuntimeException
+class EntityNotFoundException extends DomainException
 {
 }

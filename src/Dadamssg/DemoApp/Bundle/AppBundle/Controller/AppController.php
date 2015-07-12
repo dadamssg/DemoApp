@@ -2,6 +2,7 @@
 
 namespace Dadamssg\DemoApp\Bundle\AppBundle\Controller;
 
+use Dadamssg\DemoApp\Bundle\AppBundle\Exception\ExceptionClassMap;
 use Dadamssg\DemoApp\Bundle\AppBundle\Form\ErrorExtractor;
 use Dadamssg\DemoApp\Model\App\Exception\DomainException;
 use Dadamssg\DemoApp\Model\App\Validation\Assertion;
@@ -83,11 +84,13 @@ class AppController extends Controller
     {
         $data = json_decode($request->getContent(), true);
 
-        if (!is_array($data) || !array_key_exists($form->getName(), $data)) {
-            throw new DomainException("Invalid request.");
+        if (is_array($data) && array_key_exists($form->getName(), $data)) {
+            $form->submit($data[$form->getName()]);
+
+            return;
         }
 
-        $form->submit($data[$form->getName()]);
+        throw new DomainException("Invalid request.");
     }
 
     /**
@@ -100,7 +103,7 @@ class AppController extends Controller
     {
         $errors = $this->getFormErrorExtractor()->extract($form);
 
-        return $this->respondWithErrors($errors ? $errors : ["Invalid request."]);
+        return $this->respondWithErrors($errors ?: ["Invalid request."]);
     }
 
     /**
@@ -129,36 +132,28 @@ class AppController extends Controller
     private function formatError($error, $code = Response::HTTP_BAD_REQUEST)
     {
         $field = $error instanceof Error ? $error->getField() : null;
-        $statusText = array_key_exists($code, Response::$statusTexts) ? Response::$statusTexts[$code] : null;
+
+        $statusTexts = Response::$statusTexts;
 
         return [
             "status_code" => $this->isValidStatusCode($code) ? $code : Response::HTTP_BAD_REQUEST,
-            "status_text" => $statusText,
+            "status_text" => $this->isValidStatusCode($code) ? $statusTexts[$code] : $statusTexts[Response::HTTP_BAD_REQUEST],
             "message" => (string)$error,
             "field" => $field
         ];
     }
 
     /**
-     * @param Request $request
      * @param FlattenException $exception
-     * @param DebugLoggerInterface $logger
      */
-    public function showExceptionAction(
-        Request $request,
-        FlattenException $exception,
-        DebugLoggerInterface $logger = null
-    ) {
-        $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
-        $message = "Internal server error.";
+    public function showExceptionAction(FlattenException $exception)
+    {
+        $message = Response::$statusTexts[Response::HTTP_INTERNAL_SERVER_ERROR];
         $class = $exception->getClass();
+        $exceptionMap = new ExceptionClassMap();
+        $statusCode = $exceptionMap->getStatusCode($class);
 
-        if ($class === DomainException::CLASS || is_subclass_of($class, DomainException::CLASS)) {
-            $statusCode = $exception->getCode();
-            $message = $exception->getMessage();
-        }
-
-        if (in_array($this->getParameter('kernel.environment'), ['test', 'dev'])) {
+        if ($exceptionMap->canGetMessage($class) || !$this->isProduction()) {
             $message = $exception->getMessage();
         }
 
@@ -201,6 +196,14 @@ class AppController extends Controller
     protected function getFormErrorExtractor()
     {
         return $this->get("demo_app.app.form_error_extractor");
+    }
+
+    /**
+     * @return bool
+     */
+    private function isProduction()
+    {
+        return $this->getParameter('kernel.environment') === 'prod';
     }
 
     /**
