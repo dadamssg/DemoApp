@@ -3,6 +3,7 @@
 namespace Dadamssg\DemoApp\Model\User\Repository;
 
 use Dadamssg\DemoApp\Model\User\Entity\User;
+use Dadamssg\DemoApp\Model\User\Value\ConfirmationToken;
 use Dadamssg\DemoApp\Model\User\Value\Email;
 use Dadamssg\DemoApp\Model\User\Value\EncodedPassword;
 use Dadamssg\DemoApp\Model\User\Value\UserId;
@@ -27,4 +28,10 @@ interface UserRepository
      * @return User
      */
     public function findById(UserId $id);
+
+    /**
+     * @param ConfirmationToken $token
+     * @return User
+     */
+    public function finddByConfirmationToken(ConfirmationToken $token);
 }

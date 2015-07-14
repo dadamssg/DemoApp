@@ -6,13 +6,19 @@ use Dadamssg\DemoApp\Model\App\Exception\DomainException;
 use Dadamssg\DemoApp\Model\App\Exception\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 
-class ExceptionClassMap
+final class ExceptionClassMap
 {
+    /**
+     * @var array
+     */
     private $statusCodeMap = [
         EntityNotFoundException::CLASS => Response::HTTP_NOT_FOUND,
         DomainException::CLASS => Response::HTTP_BAD_REQUEST,
     ];
 
+    /**
+     * @var array
+     */
     private $showMessages = [
         EntityNotFoundException::CLASS,
         DomainException::CLASS,

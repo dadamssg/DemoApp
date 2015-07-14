@@ -4,6 +4,7 @@ namespace Dadamssg\DemoApp\Bundle\UserBundle\Controller;
 
 use Dadamssg\DemoApp\Bundle\AppBundle\Controller\AppController;
 use Dadamssg\DemoApp\Bundle\UserBundle\Form\Type\RegisterUserType;
+use Dadamssg\DemoApp\Model\User\Command\EnableUser;
 use Dadamssg\DemoApp\Model\User\Command\RegisterUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,22 @@ class UserController extends AppController
 
         return $this
             ->setStatusCode(Response::HTTP_CREATED)
+            ->setData(['message' => $message])
+            ->respond();
+    }
+
+    /**
+     * @param string $token
+     * @return Response
+     */
+    public function enableUserAction($token)
+    {
+        $command = new EnableUser($token);
+        $this->getCommandBus()->handle($command);
+
+        $message = "You have succussfully confirmed and are free to login!";
+
+        return $this
             ->setData(['message' => $message])
             ->respond();
     }

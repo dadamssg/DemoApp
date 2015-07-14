@@ -4,7 +4,9 @@ namespace Dadamssg\DemoApp\Bundle\UserBundle\Repository;
 
 use Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser;
 use Dadamssg\DemoApp\Model\User\Entity\User;
+use Dadamssg\DemoApp\Model\User\Exception\UserNotFoundException;
 use Dadamssg\DemoApp\Model\User\Repository\UserRepository;
+use Dadamssg\DemoApp\Model\User\Value\ConfirmationToken;
 use Dadamssg\DemoApp\Model\User\Value\Email;
 use Dadamssg\DemoApp\Model\User\Value\EncodedPassword;
 use Dadamssg\DemoApp\Model\User\Value\UserId;
@@ -34,5 +36,17 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     public function findById(UserId $id)
     {
         return $this->find((string)$id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function finddByConfirmationToken(ConfirmationToken $token)
+    {
+        if (null === $user = $this->findOneBy(['confirmationToken.value' => (string)$token])) {
+            throw new UserNotFoundException(sprintf('No user found by token "%s".', $token));
+        }
+
+        return $user;
     }
 }

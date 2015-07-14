@@ -11,3 +11,15 @@ services:
         class: Dadamssg\DemoApp\Bundle\UserBundle\Security\SymfonyPasswordEncoder
         arguments:
             - @security.encoder_factory
+
+    demo_app.email.mandrill:
+        class: Mandrill
+        arguments:
+            - %mandrill_api_key%
+
+    demo_app.user.user_mailer:
+        class: Dadamssg\DemoApp\Bundle\UserBundle\Mailer\MandrillUserMailer
+        arguments:
+            - @demo_app.email.mandrill
+            - 'basic'
+            - 'basic'

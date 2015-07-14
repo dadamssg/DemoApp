@@ -1,0 +1,7 @@
+services:
+    demo_app.user.send_confirmation_email_listener:
+        class: Dadamssg\DemoApp\Model\User\Listener\SendConfirmationEmailListener
+        arguments:
+            - @command_bus
+        tags:
+            - { name: event_subscriber, subscribes_to:  Dadamssg\DemoApp\Model\User\Event\UserRegistered }

@@ -19,6 +19,9 @@ Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser:
         encodedPassword:
             class: Dadamssg\DemoApp\Model\User\Value\EncodedPassword
             columnPrefix: false
+        confirmationToken:
+            class: Dadamssg\DemoApp\Model\User\Value\ConfirmationToken
+            columnPrefix: false
     uniqueConstraints:
         unique_email:
             columns: [email_canonical]

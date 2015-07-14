@@ -25,5 +25,6 @@ class DadamssgDemoAppUserExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/service'));
         $loader->load('infrastructure.yml');
         $loader->load('handlers.yml');
+        $loader->load('listeners.yml');
     }
 }

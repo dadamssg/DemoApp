@@ -1,0 +1,8 @@
+Dadamssg\DemoApp\Model\User\Value\ConfirmationToken:
+    type: embeddable
+    fields:
+        value:
+            type: string
+            column: confirmation_token
+            nullable: true
+            unique: true

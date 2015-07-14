@@ -1,0 +1,14 @@
+Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser:
+    exclusion_policy: ALL
+    xml_root_name: user
+    properties:
+        id:
+            expose: true
+            type: string
+            xml_attribute: true
+        registeredAt:
+            expose: true
+            type: DateTime
+        email:
+            expose: true
+            type: string

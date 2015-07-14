@@ -2,3 +2,8 @@ demo_app.user.register_user:
     path:     /users
     defaults: { _controller: DadamssgDemoAppUserBundle:User:Register }
     methods: [POST]
+
+demo_app.user.enable_user:
+    path: /users/confirm/{token}
+    defaults: { _controller: DadamssgDemoAppUserBundle:User:enableUser }
+    methods: [GET]

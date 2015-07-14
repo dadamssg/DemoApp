@@ -93,3 +93,15 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# JMS Serializer Configuration
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            UserModel:
+                namespace_prefix: Dadamssg\DemoApp\Model\User
+                path: "%kernel.root_dir%/../src/Dadamssg/DemoApp/Bundle/UserBundle/Resources/config/serializer/model"
+            UserBundle:
+                namespace_prefix: Dadamssg\DemoApp\Bundle\UserBundle
+                path: "%kernel.root_dir%/../src/Dadamssg/DemoApp/Bundle/UserBundle/Resources/config/serializer/bundle"

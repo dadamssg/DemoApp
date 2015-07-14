@@ -6,3 +6,25 @@ services:
             - @demo_app.user.password_encoder
         tags:
             - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\RegisterUser }
+
+    demo_app.user.assign_confirmation_token_handler:
+        class: Dadamssg\DemoApp\Model\User\Handler\AssignConfirmationTokenHandler
+        arguments:
+            - @demo_app.user.user_repository
+        tags:
+            - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\AssignConfirmationToken }
+
+    demo_app.user.enable_user_handler:
+        class: Dadamssg\DemoApp\Model\User\Handler\EnableUserHandler
+        arguments:
+            - @demo_app.user.user_repository
+        tags:
+            - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\EnableUser }
+
+    demo_app.user.send_confirmation_email_handler:
+        class: Dadamssg\DemoApp\Model\User\Handler\SendConfirmationEmailHandler
+        arguments:
+            - @demo_app.user.user_repository
+            - @demo_app.user.user_mailer
+        tags:
+            - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\SendConfirmationEmail }

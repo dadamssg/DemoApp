@@ -26,7 +26,8 @@ class Version20150711175653 extends AbstractMigration
             DECLARE
                 statements CURSOR FOR
                     SELECT tablename FROM pg_tables
-                    WHERE tableowner = username AND schemaname = 'public';
+                    WHERE tableowner = username AND schemaname = 'public'
+                    AND tablename != 'migration_versions';
             BEGIN
                 FOR stmt IN statements LOOP
                     EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';

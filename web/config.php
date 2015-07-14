@@ -1,7 +1,5 @@
 <?php
 
-phpinfo(); exit();
-
 if (!isset($_SERVER['HTTP_HOST'])) {
     exit('This script cannot be run from the CLI. Run it from a browser.');
 }

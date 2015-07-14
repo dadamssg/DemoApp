@@ -5,7 +5,7 @@ namespace Dadamssg\DemoApp\Model\User\Value;
 use Dadamssg\DemoApp\Model\App\Validation\Assertion;
 use Rhumsaa\Uuid\Uuid;
 
-final class UserId
+class UserId
 {
     /**
      * @var null|string
