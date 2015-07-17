@@ -2,15 +2,11 @@
 
 namespace Dadamssg\DemoApp\Model\User\Command;
 
-use Dadamssg\DemoApp\Model\App\Validation\HasErrors;
-use Dadamssg\DemoApp\Model\User\Value\Email;
-use Dadamssg\DemoApp\Model\User\Value\PlainPassword;
+use Dadamssg\DemoApp\Model\User\Entity\User;
 use Dadamssg\DemoApp\Model\User\Value\UserId;
 
-class RegisterUser
+class FindUserById
 {
-    use HasErrors;
-
     /**
      * @var string
      */
@@ -22,27 +18,18 @@ class RegisterUser
     private $userId;
 
     /**
-     * @var string
+     * @var User
      */
-    private $email;
-
-    /**
-     * @var string
-     */
-    private $plainPassword;
+    private $user;
 
     /**
      * @param string $currentUserId
      * @param string $userId
-     * @param string $email
-     * @param string $plainPassword
      */
-    public function __construct($currentUserId, $userId, $email, $plainPassword)
+    public function __construct($currentUserId, $userId)
     {
         $this->currentUserId = (string)$currentUserId;
         $this->userId = (string)$userId;
-        $this->email = (string)$email;
-        $this->plainPassword = (string)$plainPassword;
     }
 
     /**
@@ -62,18 +49,18 @@ class RegisterUser
     }
 
     /**
-     * @return Email
+     * @return User
      */
-    public function getEmail()
+    public function getUser()
     {
-        return new Email($this->email);
+        return $this->user;
     }
 
     /**
-     * @return PlainPassword
+     * @param User $user
      */
-    public function getPlainPassword()
+    public function setUser(User $user)
     {
-        return new PlainPassword($this->plainPassword);
+        $this->user = $user;
     }
 }

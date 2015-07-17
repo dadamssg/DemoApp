@@ -4,7 +4,7 @@ namespace Dadamssg\DemoApp\Model\User\Command;
 
 use Dadamssg\DemoApp\Model\User\Value\UserId;
 
-class SendConfirmationEmail
+class ResendConfirmationEmail
 {
     /**
      * @var string
@@ -22,8 +22,8 @@ class SendConfirmationEmail
      */
     public function __construct($currentUserId, $userId)
     {
-        $this->currentUserId = (string)$currentUserId;
-        $this->userId = (string)$userId;
+        $this->currentUserId = $currentUserId;
+        $this->userId = $userId;
     }
 
     /**

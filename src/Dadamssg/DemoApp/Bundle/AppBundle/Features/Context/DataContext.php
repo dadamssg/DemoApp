@@ -5,25 +5,26 @@ namespace Dadamssg\DemoApp\Bundle\AppBundle\Features\Context;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Dadamssg\DemoApp\Model\App\Data\DataClearer;
+use Dadamssg\DemoApp\Model\App\Data\DataManipulator;
 
 class DataContext implements Context
 {
     /**
-     * @var DataClearer
+     * @var DataManipulator
      */
-    private $dataClearer;
+    private $data;
 
     /**
-     * @param DataClearer $dataClearer
+     * @param DataClearer $data
      */
-    public function __construct(DataClearer $dataClearer)
+    public function __construct(DataManipulator $data)
     {
-        $this->dataClearer = $dataClearer;
+        $this->data = $data;
     }
 
     /** @BeforeScenario */
     public function clearData(BeforeScenarioScope $scope)
     {
-        $this->dataClearer->clear();
+        $this->data->clear();
     }
 }

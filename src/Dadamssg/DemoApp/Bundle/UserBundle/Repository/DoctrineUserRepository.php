@@ -17,9 +17,9 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function createUser(UserId $id, Email $email, EncodedPassword $password)
+    public function createUser(UserId $id, Email $email, EncodedPassword $password, ConfirmationToken $confirmationToken)
     {
-        return new DoctrineUser($id, $email, $password);
+        return new DoctrineUser($id, $email, $password, $confirmationToken);
     }
 
     /**
@@ -28,6 +28,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     public function add(User $user)
     {
         $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -35,7 +36,11 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
      */
     public function findById(UserId $id)
     {
-        return $this->find((string)$id);
+        if (null === $user =  $this->find((string)$id)) {
+            throw new UserNotFoundException(sprintf('No user found by id "%s".', $id));
+        }
+
+        return $user;
     }
 
     /**

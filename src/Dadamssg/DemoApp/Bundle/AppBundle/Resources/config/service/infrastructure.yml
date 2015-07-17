@@ -1,4 +1,9 @@
 services:
+    demo_app.app.transaction_manager:
+        class: Dadamssg\DemoApp\Bundle\AppBundle\Data\DoctrineTransactionManager
+        arguments:
+            - @doctrine.orm.entity_manager
+
     demo_app.app.validator:
         class: Dadamssg\DemoApp\Bundle\AppBundle\Validator\SymfonyValidator
         arguments:
@@ -6,3 +11,10 @@ services:
 
     demo_app.app.form_error_extractor:
         class: Dadamssg\DemoApp\Bundle\AppBundle\Form\ErrorExtractor
+
+    simple_bus.doctrine_orm_bridge.collects_events_from_entities:
+        class: SimpleBus\DoctrineORMBridge\EventListener\CollectsEventsFromEntities
+        public: false
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+            - { name: event_recorder }

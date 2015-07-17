@@ -6,6 +6,7 @@ use Dadamssg\DemoApp\Model\User\Command\RegisterUser;
 use Dadamssg\DemoApp\Model\User\Entity\User;
 use Dadamssg\DemoApp\Model\User\Repository\UserRepository;
 use Dadamssg\DemoApp\Model\User\Security\PasswordEncoder;
+use Dadamssg\DemoApp\Model\User\Value\ConfirmationToken;
 use Dadamssg\DemoApp\Model\User\Value\Salt;
 
 class RegisterUserHandler
@@ -43,7 +44,8 @@ class RegisterUserHandler
         $user = $this->users->createUser(
             $command->getUserId(),
             $command->getEmail(),
-            $encodedPassword
+            $encodedPassword,
+            new ConfirmationToken()
         );
 
         $this->users->add($user);

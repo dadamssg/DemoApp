@@ -32,6 +32,9 @@ class SendConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler->handle($command->reveal());
     }
 
+    /**
+     * @expectedException \Dadamssg\DemoApp\Model\App\Exception\DomainException
+     */
     public function testItDoesNotSendsUserEmaiIfAlreadyEnabled()
     {
         /** @var UserRepository $users */

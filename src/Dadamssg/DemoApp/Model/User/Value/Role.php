@@ -4,8 +4,11 @@ namespace Dadamssg\DemoApp\Model\User\Value;
 
 use Dadamssg\DemoApp\Model\App\Validation\Assertion;
 
-class PlainPassword
+class Role
 {
+    const ADMIN = 'ROLE_ADMIN';
+    const API = 'ROLE_API';
+
     /**
      * @var string
      */
@@ -16,10 +19,17 @@ class PlainPassword
      */
     public function __construct($value)
     {
-        Assertion::string($value, "Invalid password.");
-        Assertion::betweenLength($value, 6, 30, "Password must be between 6 and 30 characters long.");
+        Assertion::string($value, "Invalid user role.");
 
-        $this->value = $value;
+        $this->value = strtoupper($value);
+    }
+
+    /**
+     * @return static
+     */
+    public static function admin()
+    {
+        return new static(self::ADMIN);
     }
 
     /**

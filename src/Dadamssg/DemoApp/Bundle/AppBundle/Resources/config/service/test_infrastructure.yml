@@ -1,6 +1,6 @@
 services:
-    demo_app.app.postgres_data_clearer:
-        class: Dadamssg\DemoApp\Bundle\AppBundle\Data\PostgresDataClearer
+    demo_app.app.doctrine_data_manipulator:
+        class: Dadamssg\DemoApp\Bundle\AppBundle\Data\DoctrineDataManipulator
         arguments:
-            - @doctrine.dbal.default_connection
+            - @doctrine.orm.entity_manager
             - %database_user%

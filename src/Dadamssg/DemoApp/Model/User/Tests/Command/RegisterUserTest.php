@@ -11,8 +11,10 @@ class RegisterUserTest extends \PHPUnit_Framework_TestCase
 {
     public function testCommandConvertsValuesToValueObjects()
     {
-        $command = new RegisterUser((string)new UserId(), 'foo@bar.com', 's3cr3t123');
+        $userId = (string)new UserId();
+        $command = new RegisterUser($userId, $userId, 'foo@bar.com', 's3cr3t123');
 
+        $this->assertInstanceOf(UserId::CLASS, $command->getCurrentUserId());
         $this->assertInstanceOf(UserId::CLASS, $command->getUserId());
         $this->assertInstanceOf(Email::CLASS, $command->getEmail());
         $this->assertInstanceOf(PlainPassword::CLASS, $command->getPlainPassword());

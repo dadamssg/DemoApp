@@ -16,7 +16,7 @@ class ConfirmationToken
      */
     public function __construct($value = null)
     {
-        $value = $value ?: $this->generateToken();
+        $value = $value ?: self::generateToken();
 
         Assertion::string($value, "Invalid confirmation token.");
         Assertion::minLength($value, 36, "Confirmation token too short.");
@@ -27,15 +27,15 @@ class ConfirmationToken
     /**
      * @return string
      */
-    public function generateToken()
+    private static function generateToken()
     {
-        return rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
+        return rtrim(strtr(base64_encode(self::getRandomNumber()), '+/', '-_'), '=');
     }
 
     /**
      * @return string
      */
-    private function getRandomNumber()
+    private static function getRandomNumber()
     {
         // try OpenSSL
         if (function_exists('openssl_random_pseudo_bytes')) {

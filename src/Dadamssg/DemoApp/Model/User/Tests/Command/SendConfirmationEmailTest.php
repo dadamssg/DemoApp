@@ -11,7 +11,7 @@ class SendConfirmationEmailTest extends \PHPUnit_Framework_TestCase
     {
         $userId =(string)new UserId();
 
-        $command = new SendConfirmationEmail($userId);
+        $command = new SendConfirmationEmail($userId, $userId);
 
         $this->assertInstanceOf(UserId::CLASS, $command->getUserId());
     }

@@ -2,24 +2,30 @@
 
 namespace Dadamssg\DemoApp\Model\User\Listener;
 
-use Dadamssg\DemoApp\Model\User\Command\AssignConfirmationToken;
-use Dadamssg\DemoApp\Model\User\Command\SendConfirmationEmail;
 use Dadamssg\DemoApp\Model\User\Event\UserRegistered;
-use SimpleBus\Message\Bus\MessageBus;
+use Dadamssg\DemoApp\Model\User\Mailer\UserMailer;
+use Dadamssg\DemoApp\Model\User\Repository\UserRepository;
 
 class SendConfirmationEmailListener
 {
     /**
-     * @var MessageBus
+     * @var UserRepository
      */
-    private $commandBus;
+    private $users;
 
     /**
-     * @param MessageBus $commandBus
+     * @var UserMailer
      */
-    public function __construct(MessageBus $commandBus)
+    private $mailer;
+
+    /**
+     * @param UserRepository $users
+     * @param UserMailer $mailer
+     */
+    public function __construct(UserRepository $users, UserMailer $mailer)
     {
-        $this->commandBus = $commandBus;
+        $this->users = $users;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -27,7 +33,8 @@ class SendConfirmationEmailListener
      */
     public function notify(UserRegistered $event)
     {
-        $this->commandBus->handle(new AssignConfirmationToken($event->getUserId()));
-        $this->commandBus->handle(new SendConfirmationEmail($event->getUserId()));
+        $user = $this->users->findById($event->getUserId());
+
+        $this->mailer->sendAccountConfirmationEmail($user);
     }
 }

@@ -26,5 +26,10 @@ class DadamssgDemoAppUserExtension extends Extension
         $loader->load('infrastructure.yml');
         $loader->load('handlers.yml');
         $loader->load('listeners.yml');
+
+        $env = $container->getParameter('kernel.environment');
+        if (in_array($env, ['dev', 'test'])) {
+            $loader->load("test_infrastructure.yml");
+        }
     }
 }

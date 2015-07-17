@@ -5,6 +5,7 @@ namespace Dadamssg\DemoApp\Model\User\Entity;
 use Dadamssg\DemoApp\Model\User\Value\ConfirmationToken;
 use Dadamssg\DemoApp\Model\User\Value\Email;
 use Dadamssg\DemoApp\Model\User\Value\EncodedPassword;
+use Dadamssg\DemoApp\Model\User\Value\Role;
 use Dadamssg\DemoApp\Model\User\Value\UserId;
 
 interface User
@@ -43,4 +44,15 @@ interface User
      * @return ConfirmationToken
      */
     public function getConfirmationToken();
+
+    /**
+     * @param Role $role
+     */
+    public function addRole(Role $role);
+
+    /**
+     * @param Role $role
+     * @return bool
+     */
+    public function hasRole(Role $role);
 }

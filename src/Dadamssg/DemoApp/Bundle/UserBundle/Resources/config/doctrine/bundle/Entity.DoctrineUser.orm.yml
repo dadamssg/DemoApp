@@ -12,6 +12,8 @@ Dadamssg\DemoApp\Bundle\UserBundle\Entity\DoctrineUser:
             type: datetime
         enabled:
             type: boolean
+        roles:
+            type: array
     embedded:
         email:
             class: Dadamssg\DemoApp\Model\User\Value\Email

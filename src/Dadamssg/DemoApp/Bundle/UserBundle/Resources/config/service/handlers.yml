@@ -28,3 +28,17 @@ services:
             - @demo_app.user.user_mailer
         tags:
             - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\SendConfirmationEmail }
+
+    demo_app.user.promote_to_admin_handler:
+        class: Dadamssg\DemoApp\Model\User\Handler\PromoteToAdminHandler
+        arguments:
+            - @demo_app.user.user_repository
+        tags:
+            - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\PromoteToAdmin }
+
+    demo_app.user.find_user_by_id_handler:
+        class: Dadamssg\DemoApp\Model\User\Handler\FindUserByIdHandler
+        arguments:
+            - @demo_app.user.user_repository
+        tags:
+            - { name: command_handler, handles: Dadamssg\DemoApp\Model\User\Command\FindUserById }

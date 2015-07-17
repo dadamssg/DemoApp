@@ -33,8 +33,10 @@ class RegisterUserType extends AbstractType
                 'validation_groups' => false,
                 'allow_extra_fields' => true,
                 'empty_data' => function (FormInterface $form) {
+                    $userId = Uuid::uuid4()->toString();
                     return new RegisterUser(
-                        Uuid::uuid4()->toString(),
+                        $userId,
+                        $userId,
                         $form->get('email')->getData(),
                         $form->get('password')->getData()
                     );

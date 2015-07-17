@@ -2,7 +2,7 @@
 
 namespace Dadamssg\DemoApp\Model\App\Data;
 
-interface DataClearer
+interface DataManipulator
 {
     /**
      * Clear all data in the application.

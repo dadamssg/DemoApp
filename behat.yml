@@ -7,7 +7,8 @@ default:
             bundle: DadamssgDemoAppUserBundle
             contexts:
                 - Dadamssg\DemoApp\Bundle\AppBundle\Features\Context\DataContext:
-                    dataClearer: @demo_app.app.postgres_data_clearer
+                    data: @demo_app.app.doctrine_data_manipulator
                 - Dadamssg\DemoApp\Bundle\AppBundle\Features\Context\HttpContext:
                     urlGenerator: @router
-                - Dadamssg\DemoApp\Bundle\UserBundle\Features\Context\UserDomainContext: ~
+                - Dadamssg\DemoApp\Bundle\UserBundle\Features\Context\UserDomainContext:
+                    users: @demo_app.user.user_repository

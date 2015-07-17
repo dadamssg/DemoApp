@@ -4,7 +4,7 @@ namespace Dadamssg\DemoApp\Model\User\Value;
 
 use Dadamssg\DemoApp\Model\App\Validation\Assertion;
 
-final class Email
+class Email
 {
     /**
      * @var string

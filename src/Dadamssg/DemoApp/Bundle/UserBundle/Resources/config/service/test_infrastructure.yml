@@ -1,0 +1,3 @@
+services:
+    demo_app.user.user_mailer:
+        class: Dadamssg\DemoApp\Bundle\UserBundle\Mailer\NoOpUserMailer

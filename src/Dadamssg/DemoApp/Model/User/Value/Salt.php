@@ -19,7 +19,7 @@ final class Salt
         $value = $value ?: base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
 
         Assertion::string($value, "Invalid salt.");
-        Assertion::minLength($value, 30, "Salt must be greater than 30 characters long.");
+        Assertion::minLength($value, 20, "Salt must be greater than 30 characters long.");
 
         $this->value = $value;
     }

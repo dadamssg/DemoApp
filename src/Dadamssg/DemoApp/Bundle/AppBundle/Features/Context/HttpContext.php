@@ -17,15 +17,12 @@ class HttpContext implements KernelAwareContext
     /**
      * @var array
      */
-    private $headers = [
-        'Content-Type' => 'application/json',
-        'Accept' => 'application/json',
-    ];
+    private $headers = [];
 
     /**
      * @var array
      */
-    private $data = [];
+    private $data = null;
 
     /**
      * @var Client
@@ -87,24 +84,63 @@ class HttpContext implements KernelAwareContext
         return $this->client;
     }
 
+    public function isJsonRequest()
+    {
+        $this->headers['Content-Type'] = 'application/json';
+        $this->headers['Accept'] = 'application/json';
+    }
+
+    public function setJsonPayload(array $data)
+    {
+        $this->headers['Content-Type'] = 'application/json';
+        $this->data = json_encode($data);
+    }
 
     /**
-     * @param string $method
      * @param string $url
-     * @param mixed $data
      */
-    public function submitJson($method = "POST", $url, $data = null)
+    public function get($url)
     {
-        $this->client = $this->getHttpClient();
+        $this->sendRequest('GET', $url);
+    }
 
-        $this->client->request(
+    /**
+     * @param string $url
+     */
+    public function post($url)
+    {
+        $this->sendRequest('POST', $url);
+    }
+
+    /**
+     * @param string $url
+     */
+    public function put($url)
+    {
+        $this->sendRequest('PUT', $url);
+    }
+
+    /**
+     * @param string $url
+     */
+    public function delete($url)
+    {
+        $this->sendRequest('DELETE', $url);
+    }
+
+    private function sendRequest($method, $url)
+    {
+        $this->getHttpClient()->request(
             $method,
             $url,
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json', 'ACCEPT' => 'application/json'],
-            $data ? json_encode($data) : null
+            $this->headers,
+            $this->data
         );
+
+        $this->headers = [];
+        $this->data = null;
     }
 
     /**
