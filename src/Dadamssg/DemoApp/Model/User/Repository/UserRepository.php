@@ -37,5 +37,5 @@ interface UserRepository
      * @return User
      * @throws UserNotFoundException
      */
-    public function finddByConfirmationToken(ConfirmationToken $token);
+    public function findByConfirmationToken(ConfirmationToken $token);
 }

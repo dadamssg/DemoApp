@@ -9,7 +9,7 @@ class SendConfirmationEmailTest extends \PHPUnit_Framework_TestCase
 {
     public function testItConvertsUserIdToVO()
     {
-        $userId =(string)new UserId();
+        $userId = (string)new UserId();
 
         $command = new SendConfirmationEmail($userId, $userId);
 

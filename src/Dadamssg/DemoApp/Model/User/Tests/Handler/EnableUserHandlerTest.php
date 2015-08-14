@@ -21,7 +21,7 @@ class EnableUserHandlerTest extends \PHPUnit_Framework_TestCase
         $token = $this->prophesize(ConfirmationToken::CLASS)->reveal();
 
         $command->getConfirmationToken()->willReturn($token);
-        $users->finddByConfirmationToken($token)->willReturn($user->reveal());
+        $users->findByConfirmationToken($token)->willReturn($user->reveal());
         $user->setEnabled(true)->shouldBeCalled();
         $users->add($user->reveal())->shouldBeCalled();
 

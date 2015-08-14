@@ -25,7 +25,7 @@ class EnableUserHandler
      */
     public function handle(EnableUser $command)
     {
-        $user = $this->users->finddByConfirmationToken($command->getConfirmationToken());
+        $user = $this->users->findByConfirmationToken($command->getConfirmationToken());
 
         $user->setEnabled(true);
 
