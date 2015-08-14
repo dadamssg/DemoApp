@@ -37,7 +37,7 @@ class SendConfirmationEmailHandler
         $user = $this->users->findById($command->getUserId());
 
         if ($user->isEnabled()) {
-            throw new DomainException("User accound is already confirmed.");
+            throw new DomainException("User account is already confirmed.");
         }
 
         $this->mailer->sendAccountConfirmationEmail($user);

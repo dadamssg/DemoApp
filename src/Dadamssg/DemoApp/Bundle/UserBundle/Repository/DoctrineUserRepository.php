@@ -46,7 +46,7 @@ class DoctrineUserRepository extends EntityRepository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function finddByConfirmationToken(ConfirmationToken $token)
+    public function findByConfirmationToken(ConfirmationToken $token)
     {
         if (null === $user = $this->findOneBy(['confirmationToken.value' => (string)$token])) {
             throw new UserNotFoundException(sprintf('No user found by token "%s".', $token));

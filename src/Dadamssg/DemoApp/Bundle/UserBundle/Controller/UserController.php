@@ -49,7 +49,7 @@ class UserController extends AppController
         $command = new EnableUser($token);
         $this->getCommandBus()->handle($command);
 
-        $message = "You have succussfully confirmed and are free to login!";
+        $message = "You have successfully confirmed and are free to login!";
 
         return $this
             ->setData(['message' => $message])
